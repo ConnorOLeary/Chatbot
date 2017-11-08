@@ -12,18 +12,10 @@ public class Movie
 	private LocalDate releaseDate;
 	private double starScore;
 	
-	public Movie() {
-		this.title = "Some movie";
-		this.genre = "Weeaboo";
-		this.ratingMPAA = "R";
-		this.review = "Hontoni Hontoni Sugoi des";
-		this.length = 90;
-		this.releaseDate = releaseDate;
-		this.starScore = 10/10;
-	}
+
 	public Movie(String title)
 	{
-		this.title = title;
+		this.title = title + "title";
 		this.genre = "Weeaboo";
 		this.ratingMPAA = "R";
 		this.review = "Hontoni Hontoni Sugoi des";

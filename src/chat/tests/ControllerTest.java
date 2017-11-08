@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import chat.controller.ChatbotController;
 import chat.model.Chatbot;
-import chat.view.ChatFrame;
+import chat.view.PopupDisplay;
 import chat.view.ChatFrame;
 
 public class ControllerTest
@@ -60,7 +60,7 @@ public class ControllerTest
 	public void testGetDisplay()
 	{
 		assertNotNull("Popup must be initialized.", testedController.getDisplay());
-		assertTrue("Popup display type should be used.", testedController.getDisplay() instanceof ChatFrame);
+		assertTrue("Popup display type should be used.", testedController.getDisplay() instanceof PopupDisplay);
 	}
 	
 	public void testGetChatFrame()
