@@ -29,7 +29,7 @@ public class Chatbot
 		this.username = username;
 		this.content = "Content";
 		this.intro = "Hello mortal, I am your god now";
-		this.currentTime = null;
+		this.currentTime = LocalTime.now();
 		this.topics = new String[7];
 		this.verbs = new String[4];
 		this.followUps = new String[5];
@@ -45,8 +45,8 @@ public class Chatbot
 	private void buildVerbs() {
 		verbs[0] = "like";
 		verbs[1] = "dislike";
-		verbs[2] = "fuck";
-		verbs[3] = "am";
+		verbs[2] = "am not sure about";
+		verbs[3] = "am not interested in";
 	}
 	
 	private void buildFollowups() {
@@ -120,19 +120,19 @@ public class Chatbot
 		topics[3] = "Homework";
 		topics[4] = "Computers";
 		topics[5] = "Work";
-		topics[6] = "The Machine";
+		topics[6] = "Video Games";
 	}
 	
 	public String processConversation(String input)
 	{
 		String chatbotResponse = "";
 		chatbotResponse += "You said:" + "\n" + input + "\n";
-		chatbotResponse += buildChatbotRespsonse();
+		chatbotResponse += buildChatbotResponse();
 		
 		return chatbotResponse;
 	}
 	
-	private String buildChatbotRespsonse() {
+	private String buildChatbotResponse() {
 		String response = "I ";
 		int random = (int)(Math.random() * verbs.length);
 		response += verbs[random];
@@ -142,6 +142,13 @@ public class Chatbot
 		
 		random = (int)(Math.random() * questions.length);
 		response += questions[random];
+		
+		random = (int)(Math.random()*2);
+		if(random % 2 == 0)
+		{
+			random = (int)(Math.random()*movieList.size());
+			response += "\n" + movieList.get(random).getTitle() +" is a greate movie!";
+		}
 		
 		return response;
 	}
@@ -260,7 +267,33 @@ public class Chatbot
 
 	public boolean keyboardMashChecker(String sample)
 	{
-		return false;
+		Boolean test = true;
+		if(sample.contains("a") ||
+				sample.contains("e") ||
+				sample.contains("i") ||
+				sample.contains("o") ||
+				sample.contains("u") ||
+				sample.contains("y")
+				 ) {
+			test = false;
+		}else if(sample.contains(".")) {
+			int periodCount = 0;
+			int currentPlace = 0;
+			for(int place = 1; place < sample.length(); place++) 
+			{
+				if(sample.substring(currentPlace, place).contains(".")) 
+				{
+					periodCount++;
+					
+				}
+				currentPlace++;
+			}
+			if (periodCount > 1) 
+			{
+				test = false;
+			}
+		}
+		return test;
 	}
 	
 	public List<Movie> getMovieList()
@@ -315,7 +348,7 @@ public class Chatbot
 	
 	public LocalTime getCurrentTime()
 	{
-		return null;
+		return currentTime;
 	}
 	
 	public void setUsername(String username)

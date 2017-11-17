@@ -15,12 +15,17 @@ public class Movie
 
 	public Movie(String title)
 	{
-		this.title = title + "title";
+		if(title.length() < 5) {
+			this.title = title + "title";
+		}
+		else {
+			this.title = title;
+		}
 		this.genre = "Weeaboo";
 		this.ratingMPAA = "R";
 		this.review = "Hontoni Hontoni Sugoi des";
 		this.length = 90;
-		this.releaseDate = releaseDate;
+		this.releaseDate = LocalDate.of(2001,9,11);
 		this.starScore = 10/10;
 	}
 

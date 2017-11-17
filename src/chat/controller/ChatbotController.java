@@ -2,6 +2,7 @@ package chat.controller;
 
 import chat.model.*;
 import chat.view.*;
+
 public class ChatbotController {
 	private Chatbot chatbot;
 	private PopupDisplay display;
@@ -10,22 +11,32 @@ public class ChatbotController {
 	public ChatbotController() {
 		display = new PopupDisplay();
 		chatbot = new Chatbot("Connor");
-		appFrame = new ChatFrame();
+		appFrame = new ChatFrame(this);
 	}
 	public void start() {
-		String response = display.getResponse("What do you want to talk about?");
+		display.displayText("Welcome to Chatbot");
+		//String response = display.getResponse("What do you want to talk about?");
 		
-		while(chatbot.lengthChecker(response) && !chatbot.quitChecker(response)) {
-			response = popupChat(response);
-			response = display.getResponse(response);
-		}
+		//while(chatbot.lengthChecker(response) && !chatbot.quitChecker(response)) {
+		//	response = popupChat(response);
+		//	response = display.getResponse(response);
+		//}
+		
 	}
 	
 	public String interactWithChatbot(String input) {
-		if(input != null && input.length() > 5) {
-			return input;
+		String chatbotSays = "";
+		if(chatbot.quitChecker(input)) {
+			close();
 		}
-		return "What are you trying to say?";
+		chatbotSays += chatbot.processConversation(input);
+		
+		return chatbotSays;
+	}
+	
+	private void close() {
+		display.displayText("Goodbye");
+		System.exit(0);
 	}
 	private String popupChat(String chat) {
 		String chatbotSays = "";
@@ -40,6 +51,7 @@ public class ChatbotController {
 	public Object getDisplay() {
 		return display;
 	}
+	
 	public Chatbot getChatbot() {
 		return chatbot;
 	}
