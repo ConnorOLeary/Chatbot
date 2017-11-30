@@ -4,7 +4,11 @@ import java.util.List;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-
+/**
+ * Chatbot which contains how it interacts with the user
+ * @author cole9798
+ * @version 21/11/17
+ */
 public class Chatbot
 {
 	private List<Movie> movieList;
@@ -164,35 +168,42 @@ public class Chatbot
 	
 	public boolean htmlTagChecker(String input)
 	{
-		Boolean test = false;
-		
-		if(input.contains("<") && input.contains(">" ) && input.contains("</")) {
-			if(input.toUpperCase().contains("HREF")) {
-				if(input.contains("=")) {
-					test = true;
-				}
-				else {
-					test = false;
-				}
-			
-			}else {
+		boolean test = false;
+		int firstBracket = input.indexOf('<');
+		int secondBracket = input.indexOf('>');
+		if(secondBracket > firstBracket) {
+			String tagText = input.substring(firstBracket+1, secondBracket);
+			if (tagText.toUpperCase().contains("A HREF=\"")) {
+				tagText = "A";
+			}
+			String endingString = "</" + tagText + ">";
+			if(input.toUpperCase().contains(endingString)) {
+				test = true;
+			}else if(tagText.equalsIgnoreCase("P") || tagText.equalsIgnoreCase("BR")) {
 				test = true;
 			}
-		}else if(input.contains("<P>")){
-			test = true;
 		}
-		
 		return test;
 	}
 	
 	public boolean userNameChecker(String input)
 	{
 		boolean test = false;
+		int symbolCount = 0;
 		if(input != null) {
-			if(input.contains("@")) {
+			if(input.startsWith("@")) {
 				test = true;
-				if(input.contains("@@") ||input.contains(".com")) {
+				if(input.contains(".com")) {
 					test = false;
+				}
+				for(int i = 0; i< input.length(); i++) {
+					if(input.charAt(i) == '@') {
+						symbolCount++;
+					}
+					if(symbolCount == 2) {
+						test = false;
+						break;
+					}
 				}
 			}
 		}

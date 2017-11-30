@@ -1,7 +1,11 @@
 package chat.model;
 
 import java.time.LocalDate;
-
+/**
+ * Movies that the chatbot can reference are instantiated here
+ * @author cole9798
+ * @version 21/11/17
+ */
 public class Movie
 {
 	private String title;
