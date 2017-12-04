@@ -130,7 +130,7 @@ public class Chatbot
 	{
 		String chatbotResponse = "";
 		chatbotResponse += "You said:" + "\n" + input + "\n";
-		chatbotResponse += buildChatbotResponse();
+		chatbotResponse += buildChatbotResponse() + "\n";
 		
 		return chatbotResponse;
 	}
