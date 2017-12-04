@@ -23,6 +23,7 @@ public class ChatPanel extends JPanel{
 	private JButton introButton;
 	private JTextArea textArea;
 	private JTextField inputField;
+	private JScrollPane chatScrollPane;
 	private JLabel pyra;
 	
 	
@@ -42,11 +43,19 @@ public class ChatPanel extends JPanel{
 		textArea.setEditable(false);
 		textArea.setEnabled(false);
 		
+		chatScrollPane = new JScrollPane();
 		
 		
+		setupScrollPane();
 		setupPanel();
 		setupLayout();
 		setupListeners();
+	}
+	
+	private void setupScrollPane(){
+		chatScrollPane.setViewportView(textArea);
+		chatScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		chatScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 	}
 
 	private void setupPanel() {
