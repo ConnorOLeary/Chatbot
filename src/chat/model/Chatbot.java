@@ -1,7 +1,6 @@
 package chat.model;
 
 import java.util.List;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 /**
@@ -169,20 +168,29 @@ public class Chatbot
 	public boolean htmlTagChecker(String input)
 	{
 		boolean test = false;
+		if(input == null || !input.contains("<"))
+		{
+			return test;
+		}
 		int firstBracket = input.indexOf('<');
 		int secondBracket = input.indexOf('>');
-		if(secondBracket > firstBracket) {
-			String tagText = input.substring(firstBracket+1, secondBracket);
-			if (tagText.toUpperCase().contains("A HREF=\"")) {
-				tagText = "A";
-			}
-			String endingString = "</" + tagText + ">";
-			if(input.toUpperCase().contains(endingString)) {
-				test = true;
-			}else if(tagText.equalsIgnoreCase("P") || tagText.equalsIgnoreCase("BR")) {
-				test = true;
-			}
+		if(secondBracket < firstBracket) {
+			return test;
 		}
+		String tagText = input.substring(firstBracket+1, secondBracket);
+		//Singleton
+		if(tagText.equalsIgnoreCase("P") || tagText.equalsIgnoreCase("BR")) {
+			test = true;
+		}
+		
+		if (tagText.toUpperCase().contains("A HREF=\"")) {
+			tagText = "A";
+		}
+		String endingString = "</" + tagText + ">";
+		if(input.toUpperCase().contains(endingString)) {
+			test = true;
+		}
+			
 		return test;
 	}
 	
